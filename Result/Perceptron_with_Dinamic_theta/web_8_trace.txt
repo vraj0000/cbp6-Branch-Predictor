@@ -1,0 +1,119 @@
+perceptron 
+ Address = 8 
+ GHR_LEN = 28 
+ PAg_HL_LEN = 10 
+ Theta = 89 
+[HEARTBEAT] Simulated 1000000 insts (epoch: 3.2s, total: 3.2s)
+[HEARTBEAT] Simulated 2000000 insts (epoch: 4.2s, total: 7.4s)
+[HEARTBEAT] Simulated 3000000 insts (epoch: 5.1s, total: 12.6s)
+[HEARTBEAT] Simulated 4000000 insts (epoch: 5.2s, total: 17.8s)
+[HEARTBEAT] Simulated 5000000 insts (epoch: 4.2s, total: 21.9s)
+[HEARTBEAT] Simulated 6000000 insts (epoch: 5.0s, total: 27.0s)
+5000000 instrs 
+[HEARTBEAT] Simulated 7000000 insts (epoch: 5.1s, total: 32.0s)
+[HEARTBEAT] Simulated 8000000 insts (epoch: 4.8s, total: 36.9s)
+[HEARTBEAT] Simulated 9000000 insts (epoch: 4.3s, total: 41.1s)
+[HEARTBEAT] Simulated 10000000 insts (epoch: 5.1s, total: 46.2s)
+[HEARTBEAT] Simulated 11000000 insts (epoch: 4.8s, total: 51.1s)
+10000000 instrs 
+[HEARTBEAT] Simulated 12000000 insts (epoch: 5.0s, total: 56.0s)
+[HEARTBEAT] Simulated 13000000 insts (epoch: 5.2s, total: 61.2s)
+[HEARTBEAT] Simulated 14000000 insts (epoch: 4.4s, total: 65.6s)
+[HEARTBEAT] Simulated 15000000 insts (epoch: 4.2s, total: 69.8s)
+[HEARTBEAT] Simulated 16000000 insts (epoch: 4.3s, total: 74.1s)
+[HEARTBEAT] Simulated 17000000 insts (epoch: 4.5s, total: 78.5s)
+15000000 instrs 
+[HEARTBEAT] Simulated 18000000 insts (epoch: 4.3s, total: 82.8s)
+[HEARTBEAT] Simulated 19000000 insts (epoch: 4.9s, total: 87.7s)
+[HEARTBEAT] Simulated 20000000 insts (epoch: 3.7s, total: 91.4s)
+[HEARTBEAT] Simulated 21000000 insts (epoch: 4.7s, total: 96.2s)
+[HEARTBEAT] Simulated 22000000 insts (epoch: 3.3s, total: 99.5s)
+20000000 instrs 
+[HEARTBEAT] Simulated 23000000 insts (epoch: 3.5s, total: 103.0s)
+[HEARTBEAT] Simulated 24000000 insts (epoch: 2.8s, total: 105.8s)
+[HEARTBEAT] Simulated 25000000 insts (epoch: 3.4s, total: 109.2s)
+[HEARTBEAT] Simulated 26000000 insts (epoch: 3.3s, total: 112.5s)
+[HEARTBEAT] Simulated 27000000 insts (epoch: 2.9s, total: 115.4s)
+[HEARTBEAT] Simulated 28000000 insts (epoch: 3.1s, total: 118.5s)
+25000000 instrs 
+[HEARTBEAT] Simulated 29000000 insts (epoch: 3.2s, total: 121.7s)
+[HEARTBEAT] Simulated 30000000 insts (epoch: 3.2s, total: 124.9s)
+[HEARTBEAT] Simulated 31000000 insts (epoch: 3.1s, total: 128.0s)
+[HEARTBEAT] Simulated 32000000 insts (epoch: 3.2s, total: 131.2s)
+[HEARTBEAT] Simulated 33000000 insts (epoch: 3.3s, total: 134.5s)
+30000000 instrs 
+[HEARTBEAT] Simulated 34000000 insts (epoch: 3.1s, total: 137.6s)
+[HEARTBEAT] Simulated 35000000 insts (epoch: 3.3s, total: 140.9s)
+[HEARTBEAT] Simulated 36000000 insts (epoch: 3.4s, total: 144.3s)
+[HEARTBEAT] Simulated 37000000 insts (epoch: 2.8s, total: 147.1s)
+[HEARTBEAT] Simulated 38000000 insts (epoch: 3.2s, total: 150.3s)
+[HEARTBEAT] Simulated 39000000 insts (epoch: 4.8s, total: 155.1s)
+35000000 instrs 
+[HEARTBEAT] Simulated 40000000 insts (epoch: 3.3s, total: 158.3s)
+[HEARTBEAT] Simulated 41000000 insts (epoch: 2.6s, total: 160.9s)
+[HEARTBEAT] Simulated 42000000 insts (epoch: 2.6s, total: 163.5s)
+[HEARTBEAT] Simulated 43000000 insts (epoch: 4.0s, total: 167.5s)
+[HEARTBEAT] Simulated 44000000 insts (epoch: 2.9s, total: 170.4s)
+[HEARTBEAT] Simulated 45000000 insts (epoch: 2.6s, total: 173.0s)
+EOF
+
+ 
+ Theta = 60 
+ 
+---------------------SIM CONFIGURATION---------------------
+WINDOW_SIZE = 1024
+FETCH_WIDTH = 16
+FETCH_NUM_BRANCH = 16
+FETCH_STOP_AT_INDIRECT = 1
+FETCH_STOP_AT_TAKEN = 1
+FETCH_MODEL_ICACHE = 1
+PERFECT_BRANCH_PRED = 0
+PERFECT_INDIRECT_PRED = 1
+PIPELINE_FILL_LATENCY = 10
+NUM_LDST_LANES = 8
+NUM_ALU_LANES = 16
+STRIDE Prefetcher = 1
+PERFECT_CACHE = 0
+WRITE_ALLOCATE = 1
+AGEN_LATENCY = 1
+SQ_SIZE = 1024
+ST_TO_LD_FWD_LATENCY = 1
+ORACLE_MEM_DISAM
+-----------------------------------------------------------
+
+-------------------------------OVERALL STATS (Full Simulation i.e. Counts Not Reset When Warmup Ends)--------------------------------
+instructions = 39999955
+cycles       = 16263541
+CycWP        = 7560193
+IPC          = 2.4595
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------BRANCH PREDICTION MEASUREMENTS (Full Simulation i.e. Counts Not Reset When Warmup Ends)----------------------------------------------
+Type                  NumBr     MispBr        MR     MPKI
+CondDirect          6210740     317193   5.1072%   6.9949
+JumpDirect          1406322          0   0.0000%   0.0000
+JumpIndirect         173198          0   0.0000%   0.0000
+JumpReturn           950341          0   0.0000%   0.0000
+Not control        36605767          0   0.0000%   0.0000
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Last 10M instructions)-----------------------------------------------------
+       Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
+    10999955      3409514   3.2263    1780527      70375   0.5222       0.0206   3.9525%   6.3978    1686256    23.9610   153.2966
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Last 25M instructions)-----------------------------------------------------
+       Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
+    25999955      9242561   2.8131    4111607     200499   0.4449       0.0217   4.8764%   7.7115    4757812    23.7299   182.9931
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (50 Perc instructions)---------------------------------------------------
+       Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
+    20999955      6949500   3.0218    3431526     147733   0.4938       0.0213   4.3052%   7.0349    3403993    23.0415   162.0953
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Full Simulation i.e. Counts Not Reset When Warmup Ends)-------------------------------------
+       Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
+    39999955     16263541   2.4595    6210740     317193   0.3819       0.0195   5.1072%   7.9298    7560193    23.8347   189.0050
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Read 39999955 instrs 
