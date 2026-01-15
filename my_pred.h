@@ -18,6 +18,9 @@
 #define PHR_LEN 64                          //Path History
 #define PHR_MASK ((1ul << PHR_LEN) - 1)
 
+#define LHR_LEN 10
+#define LHR_MASK ((1ul << LHR_LEN) - 1)
+
 #define FETURE_SIZE 1024
 #define FETURE_COUNT 8
 
@@ -38,6 +41,7 @@ private:
 
     uint64_t    _ghr;
     uint64_t    _phr;
+    uint64_t    _lhr;
 
     int8_t _history_lengths[FETURE_COUNT] = {0, 2, 4, 8, 10, 16, 24, 48};
     int8_t _fetures[FETURE_COUNT][FETURE_SIZE];

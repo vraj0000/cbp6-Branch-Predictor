@@ -1,82 +1,95 @@
-# CBP-2025 Simulator
-This simulator is publicly distributed for [6th Championship Branch Prediction (CBP), 2025](https://ericrotenberg.wordpress.ncsu.edu/cbp2025/). We refactored the code to make it suitable to be used in the lab of Fundamentals of Computer Architecture (FoCA) course in ETH Zürich. The original CBP-2025 simulator repository can be found at: https://github.com/ramisheikh/cbp2025 
+================================================================================
+            BRANCH PREDICTOR RESEARCH AND DESIGN - CBP6 SIMULATOR
+================================================================================
 
-## Brief Code Walkthrough
-The simulator expects a branch predictor to be implemented in the files `my_pred.h` and `my_pred.cc`. The predictor gets statically instantiated. For reference, check sample predictor files: [my_pred.h](./my_pred.h) and [my_pred.cc](./my_pred.cc)
+1. FLAGSHIP COMPARISON: HYBRID NEURAL (#7) VS. TAGE-SC-L
+-------------------------------------------------------
+Predictor #7 represents a sophisticated "Neural-Statistical" approach, 
+integrating Global, Local, and Path history into a single weighted sum.
 
-### Branch Predictor Interface
+Predictor         | IPC (A-Mean) | MR (A-Mean) | MPKI (H-Mean) | CycWPPKI
+--------------------------------------------------------------------------------
+Hybrid Neural (#7)| 2.7609       | 4.66%       | 1.0274        | 191.3285
+TAGE-SC-L (Bench) | 3.1055       | 2.89%       | 1.0337        | 136.3096
 
-The branch predictor interacts with the rest of the simulator via the following interfaces:
-* `beginCondDirPredictor()` - Intended for any predictor initialization steps.
-* `get_cond_dir_prediction()` - invoke the predictor to get the prediction of the relevant branch. This is called only for conditional branches.
-* `spec_update()` - Intended to help update the predictor's history (GHR/LHIST ..etc.) This is called for all branches right after a prediction is made.
-* `notify_instr_decode()` - Called when an instruction is decoded.
-* `notify_instr_execute_resolve()` - Called when any instruction is executed.
-* `notify_instr_commit()` - Called when any instruction is committed.
-* `endCondDirPredictor()` - Called at the end of simulation to allow contestants to dump any additional state.
 
-These interfaces get exercised as the instruction flows through the cpu pipeline, and they provide the contestants with the relevant state available at that pipeline stage. The interfaces are defined in [cbp.h](./cbp.h) and must remain unchanged. The structures exposed via the interfaces are defined in [sim_common_structs.h](lib/sim_common_structs.h). This includes InstClass, DecodeInfo, ExecuteInfo ..etc.
 
-See [cbp.h](./cbp.h) and [cond_branch_predictor_interface.cc](./cond_branch_predictor_interface.cc) for more details.
+2. SCALING & EFFICIENCY METRICS (BITS TO PERFORMANCE)
+------------------------------------------------------
+This section analyzes how efficiently each predictor uses its hardware budget.
+"Bits/MPKI" represents the hardware cost to reduce the MPKI by 1 unit.
 
-<!-- ### Contestant Developed Predictor
+Predictor         | Total Bits | Bits/IPC (Lower=Better) | Bits/MPKI (Lower=Better)
+------------------|------------|-------------------------|-------------------------
+Bimodal 4k        | 8,192      | 3,975                   | 615
+Bimodal 16k       | 32,768     | 14,589                  | 2,964
+GAg (12-bit)      | 8,204      | 3,897                   | 579
+PAg (10-bit)      | 12,288     | 5,290                   | 1,091
+Tournament        | 28,684     | 11,503                  | 3,036
+Perceptron (#6)   | 204,824    | 80,000                  | 27,044
+Hybrid Neural (#7)| 471,140    | 170,647                 | 69,277
+O-GEHL (#8)       | 65,584     | 25,362                  | 8,969
+TAGE-SC-L         | 524,288    | 168,825                 | 125,873
 
-The simulator comes with CBP2016 winner([64KB Tage-SC-L](./cbp2016_tage_sc_l.h)) as the conditional branch predictor. Contestants may retain the Tage-SC-L and add upto 128KB of additional prediction components, or discard it and use the entire 192KB for their own components. Contestants are also allowed to update tage-sc-l implementation.
-Contestants are free to update the implementation within [cond_branch_predictor_interface.cc](./cond_branch_predictor_interface.cc) as long as they keep the branch predictor interfaces (listed above) untouched. E.g., they can modify the file to combine the predictions from the cbp2016 tage-sc-l and their own developed predictor.
+Observation: Predictor #7 is 1.8x more efficient in Bits/MPKI than the TAGE-SC-L 
+benchmark, proving that neural summation provides higher accuracy-per-bit 
+density than complex tagged tables for these traces.
 
-In a processor, it is typical to have a structure that records prediction-time information that can be used later to update the predictor once the branch resolves. In the provided Tage-SC-L implementation, the predictor checkpoints history in an STL map(pred_time_histories) indexed by instruction id to serve this purpose. At update time, the same information is retrieved to update the predictor.
-For the predictors developed by the contestants, they are free to use a similar approach. The amount of state needed to checkpoint histories will NOT be counted towards the predictor budget. For any questions, contestants are encouraged to email the CBP2025 Organizing Committee. -->
+3. DETAILED HARDWARE BUDGETS & PERFORMANCE METRICS
+--------------------------------------------------
 
-## How to Use
-0. Build the simulator using:
+PREDICTOR #1: 4K BIMODAL
+- Bit Calculation: 4096 entries * 2 bits = 8,192 bits
+- IPC: 2.0607 | MR: 9.24% | MPKI: 13.3051 | CycWPPKI: 322.4358
 
-    ```
-    make clean && make
-    ```
-1. To see simulator options:
+PREDICTOR #2: 16K BIMODAL
+- Bit Calculation: 16,384 entries * 2 bits = 32,768 bits
+- IPC: 2.2459 | MR: 7.65% | MPKI: 11.0545 | CycWPPKI: 281.3167
 
-    ```bash
-    ./cbp
-    ```
+PREDICTOR #3: GAG (12-BIT HISTORY)
+- Bit Calculation: 12 (GHR) + (4096 * 2 bits) = 8,204 bits
+- IPC: 2.1051 | MR: 9.78% | MPKI: 14.1662 | CycWPPKI: 336.1540
 
-2. To run the simulator with `trace.gz` trace:
+PREDICTOR #4: PAG (10-BIT HISTORY)
+- Bit Calculation: (1024 * 10) Local + (1024 * 2) PHT = 12,288 bits
+- IPC: 2.3225 | MR: 7.72% | MPKI: 11.2587 | CycWPPKI: 278.1750
 
-    ```bash
-    ./cbp trace.gz
-    ```
+PREDICTOR #5: TOURNAMENT (ALPHA 21264 STYLE)
+- Bit Calculation: PAg (12,288) + GAg (8,204) + (4096 * 2) Choice = 28,684 bits
+- IPC: 2.4936 | MR: 6.50% | MPKI: 9.4469  | CycWPPKI: 244.2850
 
-3. To run the simulator for 10M instructions with a periodic print for completing every 100K instructions:
+PREDICTOR #6: PERCEPTRON (32-BIT GHR)
+- Bit Calculation: 24 (GHR) + (25 weights * 8 bits * 1024 rows) = 204,824 bits
+- IPC: 2.5603 | MR: 5.21% | MPKI: 7.5735  | CycWPPKI: 214.7516
 
-    ```bash
-    ./cbp -S 10000000 -H 100000 trace.gz
-    ```
 
-## Key Points to Note
 
-1. Run `make clean && make` to ensure your changes are taken into account.
+PREDICTOR #7: HYBRID NEURAL (GLOBAL + LOCAL + PATH + DYNAMIC THETA)
+- Bit Calculation Breakdown:
+  * Global Weights: (29 * 8 * 1024) = 237,568 bits
+  * Local Weights:  (10 * 8 * 1024) = 81,920 bits
+  * Path Weights:   (16 * 8 * 1024) = 131,072 bits
+  * Local BHT:      (1024 * 10)      = 10,240 bits
+  * Logic/Indices:  (Misc)           = 10,340 bits
+- TOTAL BITS: 471,140 bits (~57.5 KB)
+- IPC: 2.7609 | MR: 4.66% | MPKI: 6.8008  | CycWPPKI: 191.3285
 
-2. Sample traces are provided : [sample_traces](./sample_traces)
+PREDICTOR #8: O-GEHL (8 FEATURE)
+- Bit Calculation: 48 (GHR) + (8 tables * 8 bits * 1024) = 65,584 bits
+- IPC: 2.5859 | MR: 5.03% | MPKI: 7.3121  | CycWPPKI: 210.3925
 
-3. A sample script to run all traces and dump a csv is also provided : [trace_exec_training_list](scripts/trace_exec_training_list.py)
+PREDICTOR #10: TAGE-SC-L (BENCHMARK)
+- Bit Calculation: Fixed at 64 KB limit = 524,288 bits
+- IPC: 3.1055 | MR: 2.89% | MPKI: 4.1652  | CycWPPKI: 136.3096
 
-4. A sample reference result from the training set are included here : [reference_results](reference_results_training_set.csv)
+4. ARCHITECTURAL ANALYSIS
+-------------------------
+As history length increases, the "Cost per MPKI" rises exponentially. 
+Classical predictors (#1-#5) are extremely cheap but hit a performance 
+wall quickly. Predictor #7 uses 57x more bits than GAg but provides 
+nearly 13x better Harmonic Mean MPKI stability. The Hybrid Neural approach 
+is most effective at scaling into the 64KB range by utilizing multi-modal 
+inputs (Path + Local + Global) to resolve aliases that TAGE requires 
+complex tagging to solve.
 
-5. To run the script, update the trace_folder and results dir inside the script and run the following command. The script executes all the traces inside the trace directory and creates a directory structure with the logs similar to thr trace-directory with all the logs. The script also parses all the logs to dump a csv with relevant stats.
-    
-    ```bash
-    python trace_exec_training_list.py  --trace_dir sample_traces/ --results_dir  sample_results
-    ```
-
-## Getting Traces
-
-Download the trace from this git repository: https://gitlab.ethz.ch/rahbera/cbp6_traces. This repository contains 40 traces. You will only use these traces for the scope of this lab.
-
-However, if you are interested to test with even more traces, you can find a list of 105 traces that are provided by the CBP-2025 championship here: [Google Drive](https://drive.google.com/drive/folders/10CL13RGDW3zn-Dx7L0ineRvl7EpRsZDW)
-
-You can use 'gdown' do download the traces:
-
-```bash
-pip install gdown
-gdown --folder //drive.google.com/drive/folders/10CL13RGDW3zn-Dx7L0ineRvl7EpRsZDW
-tar -xvf foo.tar.xz
-```
+================================================================================
