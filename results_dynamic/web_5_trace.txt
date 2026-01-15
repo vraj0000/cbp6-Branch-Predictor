@@ -1,60 +1,60 @@
 Feture Learning 
-Feture Count = 3 
+Feture Count = 8 
 
-[HEARTBEAT] Simulated 1000000 insts (epoch: 3.1s, total: 3.1s)
-[HEARTBEAT] Simulated 2000000 insts (epoch: 4.0s, total: 7.1s)
-[HEARTBEAT] Simulated 3000000 insts (epoch: 4.2s, total: 11.3s)
-[HEARTBEAT] Simulated 4000000 insts (epoch: 2.6s, total: 13.9s)
-[HEARTBEAT] Simulated 5000000 insts (epoch: 3.9s, total: 17.7s)
+[HEARTBEAT] Simulated 1000000 insts (epoch: 4.2s, total: 4.2s)
+[HEARTBEAT] Simulated 2000000 insts (epoch: 2.6s, total: 6.9s)
+[HEARTBEAT] Simulated 3000000 insts (epoch: 3.7s, total: 10.6s)
+[HEARTBEAT] Simulated 4000000 insts (epoch: 2.7s, total: 13.2s)
+[HEARTBEAT] Simulated 5000000 insts (epoch: 2.7s, total: 16.0s)
 5000000 instrs 
-[HEARTBEAT] Simulated 6000000 insts (epoch: 4.1s, total: 21.9s)
-[HEARTBEAT] Simulated 7000000 insts (epoch: 4.3s, total: 26.1s)
-[HEARTBEAT] Simulated 8000000 insts (epoch: 4.5s, total: 30.6s)
-[HEARTBEAT] Simulated 9000000 insts (epoch: 4.5s, total: 35.1s)
-[HEARTBEAT] Simulated 10000000 insts (epoch: 4.4s, total: 39.5s)
+[HEARTBEAT] Simulated 6000000 insts (epoch: 2.7s, total: 18.6s)
+[HEARTBEAT] Simulated 7000000 insts (epoch: 3.3s, total: 21.9s)
+[HEARTBEAT] Simulated 8000000 insts (epoch: 3.3s, total: 25.2s)
+[HEARTBEAT] Simulated 9000000 insts (epoch: 2.8s, total: 28.0s)
+[HEARTBEAT] Simulated 10000000 insts (epoch: 3.5s, total: 31.5s)
 10000000 instrs 
-[HEARTBEAT] Simulated 11000000 insts (epoch: 4.7s, total: 44.2s)
-[HEARTBEAT] Simulated 12000000 insts (epoch: 4.6s, total: 48.8s)
-[HEARTBEAT] Simulated 13000000 insts (epoch: 4.3s, total: 53.1s)
-[HEARTBEAT] Simulated 14000000 insts (epoch: 4.5s, total: 57.6s)
-[HEARTBEAT] Simulated 15000000 insts (epoch: 4.2s, total: 61.8s)
-[HEARTBEAT] Simulated 16000000 insts (epoch: 4.1s, total: 65.9s)
+[HEARTBEAT] Simulated 11000000 insts (epoch: 2.9s, total: 34.4s)
+[HEARTBEAT] Simulated 12000000 insts (epoch: 2.9s, total: 37.3s)
+[HEARTBEAT] Simulated 13000000 insts (epoch: 3.0s, total: 40.3s)
+[HEARTBEAT] Simulated 14000000 insts (epoch: 2.9s, total: 43.2s)
+[HEARTBEAT] Simulated 15000000 insts (epoch: 2.7s, total: 45.9s)
+[HEARTBEAT] Simulated 16000000 insts (epoch: 3.1s, total: 49.0s)
 15000000 instrs 
-[HEARTBEAT] Simulated 17000000 insts (epoch: 4.4s, total: 70.3s)
-[HEARTBEAT] Simulated 18000000 insts (epoch: 4.6s, total: 74.9s)
-[HEARTBEAT] Simulated 19000000 insts (epoch: 4.5s, total: 79.4s)
-[HEARTBEAT] Simulated 20000000 insts (epoch: 4.4s, total: 83.8s)
-[HEARTBEAT] Simulated 21000000 insts (epoch: 4.5s, total: 88.4s)
-[HEARTBEAT] Simulated 22000000 insts (epoch: 4.5s, total: 92.8s)
+[HEARTBEAT] Simulated 17000000 insts (epoch: 3.1s, total: 52.1s)
+[HEARTBEAT] Simulated 18000000 insts (epoch: 2.8s, total: 54.9s)
+[HEARTBEAT] Simulated 19000000 insts (epoch: 2.9s, total: 57.8s)
+[HEARTBEAT] Simulated 20000000 insts (epoch: 2.8s, total: 60.6s)
+[HEARTBEAT] Simulated 21000000 insts (epoch: 2.9s, total: 63.5s)
+[HEARTBEAT] Simulated 22000000 insts (epoch: 3.2s, total: 66.7s)
 20000000 instrs 
-[HEARTBEAT] Simulated 23000000 insts (epoch: 4.3s, total: 97.2s)
-[HEARTBEAT] Simulated 24000000 insts (epoch: 3.9s, total: 101.1s)
-[HEARTBEAT] Simulated 25000000 insts (epoch: 4.3s, total: 105.4s)
-[HEARTBEAT] Simulated 26000000 insts (epoch: 2.8s, total: 108.2s)
-[HEARTBEAT] Simulated 27000000 insts (epoch: 2.7s, total: 110.9s)
+[HEARTBEAT] Simulated 23000000 insts (epoch: 3.9s, total: 70.6s)
+[HEARTBEAT] Simulated 24000000 insts (epoch: 4.3s, total: 74.9s)
+[HEARTBEAT] Simulated 25000000 insts (epoch: 4.4s, total: 79.3s)
+[HEARTBEAT] Simulated 26000000 insts (epoch: 4.6s, total: 83.9s)
+[HEARTBEAT] Simulated 27000000 insts (epoch: 4.4s, total: 88.4s)
 25000000 instrs 
-[HEARTBEAT] Simulated 28000000 insts (epoch: 2.9s, total: 113.8s)
-[HEARTBEAT] Simulated 29000000 insts (epoch: 2.7s, total: 116.6s)
-[HEARTBEAT] Simulated 30000000 insts (epoch: 3.8s, total: 120.3s)
-[HEARTBEAT] Simulated 31000000 insts (epoch: 4.6s, total: 125.0s)
-[HEARTBEAT] Simulated 32000000 insts (epoch: 4.5s, total: 129.4s)
-[HEARTBEAT] Simulated 33000000 insts (epoch: 4.5s, total: 133.9s)
+[HEARTBEAT] Simulated 28000000 insts (epoch: 3.0s, total: 91.3s)
+[HEARTBEAT] Simulated 29000000 insts (epoch: 2.7s, total: 94.0s)
+[HEARTBEAT] Simulated 30000000 insts (epoch: 2.7s, total: 96.7s)
+[HEARTBEAT] Simulated 31000000 insts (epoch: 2.7s, total: 99.4s)
+[HEARTBEAT] Simulated 32000000 insts (epoch: 4.0s, total: 103.4s)
+[HEARTBEAT] Simulated 33000000 insts (epoch: 4.2s, total: 107.6s)
 30000000 instrs 
-[HEARTBEAT] Simulated 34000000 insts (epoch: 4.1s, total: 138.0s)
-[HEARTBEAT] Simulated 35000000 insts (epoch: 4.1s, total: 142.1s)
-[HEARTBEAT] Simulated 36000000 insts (epoch: 4.1s, total: 146.2s)
-[HEARTBEAT] Simulated 37000000 insts (epoch: 4.0s, total: 150.2s)
-[HEARTBEAT] Simulated 38000000 insts (epoch: 3.9s, total: 154.1s)
+[HEARTBEAT] Simulated 34000000 insts (epoch: 4.3s, total: 111.9s)
+[HEARTBEAT] Simulated 35000000 insts (epoch: 4.4s, total: 116.3s)
+[HEARTBEAT] Simulated 36000000 insts (epoch: 4.6s, total: 120.9s)
+[HEARTBEAT] Simulated 37000000 insts (epoch: 4.3s, total: 125.2s)
+[HEARTBEAT] Simulated 38000000 insts (epoch: 3.8s, total: 129.0s)
 35000000 instrs 
-[HEARTBEAT] Simulated 39000000 insts (epoch: 3.2s, total: 157.3s)
-[HEARTBEAT] Simulated 40000000 insts (epoch: 2.4s, total: 159.6s)
-[HEARTBEAT] Simulated 41000000 insts (epoch: 2.4s, total: 162.0s)
-[HEARTBEAT] Simulated 42000000 insts (epoch: 2.3s, total: 164.3s)
-[HEARTBEAT] Simulated 43000000 insts (epoch: 2.2s, total: 166.6s)
-[HEARTBEAT] Simulated 44000000 insts (epoch: 2.4s, total: 168.9s)
+[HEARTBEAT] Simulated 39000000 insts (epoch: 2.7s, total: 131.8s)
+[HEARTBEAT] Simulated 40000000 insts (epoch: 2.6s, total: 134.4s)
+[HEARTBEAT] Simulated 41000000 insts (epoch: 3.2s, total: 137.6s)
+[HEARTBEAT] Simulated 42000000 insts (epoch: 2.8s, total: 140.4s)
+[HEARTBEAT] Simulated 43000000 insts (epoch: 3.0s, total: 143.4s)
+[HEARTBEAT] Simulated 44000000 insts (epoch: 4.1s, total: 147.4s)
 EOF
 
- Theta = 9 
+ Theta = 11 
 ---------------------SIM CONFIGURATION---------------------
 WINDOW_SIZE = 1024
 FETCH_WIDTH = 16
@@ -78,14 +78,14 @@ ORACLE_MEM_DISAM
 
 -------------------------------OVERALL STATS (Full Simulation i.e. Counts Not Reset When Warmup Ends)--------------------------------
 instructions = 39999694
-cycles       = 15612781
-CycWP        = 8083588
-IPC          = 2.5620
+cycles       = 18079792
+CycWP        = 10670291
+IPC          = 2.2124
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------------------------BRANCH PREDICTION MEASUREMENTS (Full Simulation i.e. Counts Not Reset When Warmup Ends)----------------------------------------------
 Type                  NumBr     MispBr        MR     MPKI
-CondDirect          6198022     356179   5.7467%   8.0322
+CondDirect          6198022     519435   8.3807%  11.7138
 JumpDirect          1406941          0   0.0000%   0.0000
 JumpIndirect         236471          0   0.0000%   0.0000
 JumpReturn           866875          0   0.0000%   0.0000
@@ -94,21 +94,21 @@ Not control        35635394          0   0.0000%   0.0000
 
 ------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Last 10M instructions)-----------------------------------------------------
        Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
-    10999694      4014432   2.7400    1729840      99278   0.4309       0.0247   5.7391%   9.0255    2100152    21.1543   190.9282
+    10999694      4764043   2.3089    1729840     147347   0.3631       0.0309   8.5180%  13.3956    2884351    19.5752   262.2210
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Last 25M instructions)-----------------------------------------------------
        Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
-    25999694     10638057   2.4440    4057851     265545   0.3814       0.0250   6.5440%  10.2134    6023783    22.6846   231.6867
+    25999694     12658891   2.0539    4057851     396501   0.3206       0.0313   9.7712%  15.2502    8137680    20.5237   312.9914
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (50 Perc instructions)---------------------------------------------------
        Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
-    20999694      8295824   2.5314    3330435     207799   0.4015       0.0250   6.2394%   9.8953    4657172    22.4119   221.7733
+    20999694      9798774   2.1431    3330435     305213   0.3399       0.0311   9.1644%  14.5342    6229549    20.4105   296.6495
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -------------------------------------DIRECT CONDITIONAL BRANCH PREDICTION MEASUREMENTS (Full Simulation i.e. Counts Not Reset When Warmup Ends)-------------------------------------
        Instr       Cycles      IPC      NumBr     MispBr BrPerCyc MispBrPerCyc        MR     MPKI      CycWP   CycWPAvg   CycWPPKI
-    39999694     15612781   2.5620    6198022     356179   0.3970       0.0228   5.7467%   8.9045    8083588    22.6953   202.0912
+    39999694     18079792   2.2124    6198022     519435   0.3428       0.0287   8.3807%  12.9860   10670291    20.5421   266.7593
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Read 39999694 instrs 
