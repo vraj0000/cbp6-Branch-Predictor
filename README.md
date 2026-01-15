@@ -77,9 +77,9 @@ PREDICTOR #10: TAGE-SC-L (BENCHMARK)
 ### 5. AUTOMATION & EXECUTION (BASH SCRIPT)
 ---------------------------------------
 - / (Main Directory): Contains the primary C++ source code for the 
-  O-GEHL and Hybrid Perceptron implementations.
-- /tasks: Contains source code and headers for various experimental 
-  predictor tasks (#1 through #6).
+  O-GEHL
+- /submission: Contains source code and headers for various experimental 
+  predictor tasks (#1 through #7).
 - /results: Stores the output logs and performance metrics for individual 
   trace files.
 - /cbp6_traces: Directory containing the 40 benchmark trace files.
