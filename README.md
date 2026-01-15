@@ -4,20 +4,20 @@
 --------------------------------------------------------------------------------
 ID  | Predictor Architecture              | Budget (Bits) | MPKI (A-Mean)
 ----|-------------------------------------|---------------|---------------
-#1  | 4k Bimodal                          | 8,192         | 13.3051
-#2  | 16k Bimodal                         | 32,768        | 11.0545
-#3  | GAg (12-bit Global History)         | 8,204         | 14.1662
-#4  | PAg (10-bit Local History)          | 12,288        | 11.2587
-#5  | Tournament (Alpha 21264 Style)      | 28,684        | 9.4469
-#6  | Perceptron (32-bit GHR)             | 204,824       | 7.5735
-#7  | HYBRID NEURAL                       | 471,140       | 6.8008
-#8  | O-GEHL (8-Feature Geometric)        | 65,584        | 7.3121
-#9  | 3-Feature Table (GHR/PHR/PC)        | N/A           | 10.9173
-#10 | TAGE-SC-L (Benchmark)               | 524,288       | 4.1652
+1  | 4k Bimodal                          | 8,192         | 13.3051
+2  | 16k Bimodal                         | 32,768        | 11.0545
+3  | GAg (12-bit Global History)         | 8,204         | 14.1662
+4  | PAg (10-bit Local History)          | 12,288        | 11.2587
+5  | Tournament (Alpha 21264 Style)      | 28,684        | 9.4469
+6  | Perceptron (32-bit GHR)             | 204,824       | 7.5735
+7  | HYBRID NEURAL                       | 471,140       | 6.8008
+8  | O-GEHL (8-Feature Geometric)        | 65,584        | 7.3121
+9  | 3-Feature Table (GHR/PHR/PC)        | N/A           | 10.9173
+10 | TAGE-SC-L (Benchmark)               | 524,288       | 4.1652
 
 
 
-2. FLAGSHIP COMPARISON: HYBRID NEURAL (#7) VS. TAGE-SC-L
+### 2. FLAGSHIP COMPARISON: HYBRID NEURAL (#7) VS. TAGE-SC-L
 -------------------------------------------------------
 Predictor #7 represents a sophisticated "Neural-Statistical" approach, 
 integrating Global, Local, and Path history into a single weighted sum.
@@ -27,7 +27,7 @@ Predictor         | IPC (A-Mean) | MR (A-Mean) | MPKI (H-Mean) | CycWPPKI
 Hybrid Neural (#7)| 2.7609       | 4.66%       | 1.0274        | 191.3285
 TAGE-SC-L (Bench) | 3.1055       | 2.89%       | 1.0337        | 136.3096
 
-3. SCALING & EFFICIENCY METRICS (BITS TO PERFORMANCE)
+### 3. SCALING & EFFICIENCY METRICS (BITS TO PERFORMANCE)
 ------------------------------------------------------
 "Bits/MPKI" represents the hardware bit cost to reduce the MPKI by 1 unit.
 
@@ -47,7 +47,7 @@ Observation: Predictor #7 is significantly more efficient per bit than TAGE-SC-L
 While TAGE has lower absolute MPKI, the Hybrid Perceptron achieves better 
 accuracy density, requiring fewer bits to maintain a sub-1.1 Harmonic Mean MPKI.
 
-4. DETAILED HARDWARE BUDGETS & PERFORMANCE METRICS
+### 4. DETAILED HARDWARE BUDGETS & PERFORMANCE METRICS
 --------------------------------------------------
 
 PREDICTOR #1: 4K BIMODAL
@@ -74,14 +74,30 @@ PREDICTOR #10: TAGE-SC-L (BENCHMARK)
 - Bit Calculation: 524,288 bits (64 KB Limit)
 - Metrics: IPC: 3.1055 | MR: 2.89% | MPKI: 4.1652 | CycWPPKI: 136.3096
 
-5. INDEPENDENT STUDY & REFERENCES
+### 5. AUTOMATION & EXECUTION (BASH SCRIPT)
+---------------------------------------
+- / (Main Directory): Contains the primary C++ source code for the 
+  O-GEHL and Hybrid Perceptron implementations.
+- /tasks: Contains source code and headers for various experimental 
+  predictor tasks (#1 through #6).
+- /results: Stores the output logs and performance metrics for individual 
+  trace files.
+- /cbp6_traces: Directory containing the 40 benchmark trace files.
+
+### 6. INDEPENDENT STUDY & REFERENCES
 ----------------------------------
 This research was conducted independently by following the Prof. Onur Mutlu 
 (ETH Zurich) Digital Design and Computer Architecture lecture series.
 
 [1] Seznec, A. "Genesis of the O-GEHL branch predictor." JILP, 2005.
+
 [2] Jiménez, D. A. "Multiperspective Perceptron Predictor." CBP-6, 2019.
     (Inspiration for the 3-Feature Predictor #9).
+
 [3] Jiménez, D. A., & Lin, C. "Dynamic Branch Prediction with Perceptrons." 
     HPCA, 2001.
+
 [4] Jimenez, D. A. "Piecewise Linear Branch Prediction." ISCA, 2005.
+
+[5] Kessler, R. E. "The Alpha 21264 Microprocessor." IEEE Micro, 1999.
+    (Basis for Tournament Predictor #5).
