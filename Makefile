@@ -22,7 +22,7 @@
 # // Author: Eric Rotenberg (ericro@ncsu.edu)
 
 CC = g++
-OPT = -O3 -msse4.1 -mavx2
+OPT = -O3
 LIBS = -lcbp -lz
 #FLAGS = -std=c++11 -L./lib $(LIBS) $(OPT)
 FLAGS = -std=c++17 -L./lib $(LIBS) $(OPT)

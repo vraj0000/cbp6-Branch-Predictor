@@ -98,7 +98,7 @@ MPKI            | 8.4279             | 1.5202
 CycWPPKI        | 217.7051           | 67.4220           
 ============================================================
 
-Perceptron GHR 28- PAg 10 1 weight - Path - 16 and dynampic thrres holding
+Perceptron GHR 28- PAg 10 1 weight - Path - 16  - 10 bit local weight and dynampic thrres holding
 ============================================================
 METRIC          | ARITHMETIC MEAN      | HARMONIC MEAN       
 ------------------------------------------------------------

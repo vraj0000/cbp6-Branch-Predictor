@@ -1,103 +1,82 @@
 ## BRANCH PREDICTOR RESEARCH AND DESIGN - CBP6 SIMULATOR
 
-1. PROJECT SUMMARY: ALL IMPLEMENTED PREDICTORS
+### 1. PROJECT SUMMARY: ALL IMPLEMENTED PREDICTORS
 --------------------------------------------------------------------------------
 ID  | Predictor Architecture              | Budget (Bits) | MPKI (A-Mean)
 ----|-------------------------------------|---------------|---------------
-1  | 4k Bimodal                          | 8,192         | 13.3051
-2  | 16k Bimodal                         | 32,768        | 11.0545
-3  | GAg (12-bit Global History)         | 8,204         | 14.1662
-4  | PAg (10-bit Local History)          | 12,288        | 11.2587
-5  | Tournament (Alpha 21264 Style)      | 28,684        | 9.4469
-6  | Perceptron (32-bit GHR)             | 204,824       | 7.5735
-7  | HYBRID NEURAL                       | 471,140       | 6.8008
-8  | O-GEHL (8-Feature Geometric)        | 65,584        | 7.3121
-9  | 3-Feature Table (GHR/PHR/PC)        | N/A           | 10.9173
-10 | TAGE-SC-L (Benchmark)               | 524,288       | 4.1652
+1   | 4k Bimodal                          | 8,192         | 13.3051
+2   | 16k Bimodal                         | 32,768        | 11.0545
+3   | GAg (12-bit Global History)         | 8,204         | 14.1662
+4   | PAg (10-bit Local History)          | 12,288        | 11.2587
+5   | Tournament (Alpha 21264 Style)      | 28,684        | 9.4469
+6   | Perceptron (32-bit GHR)             | 204,824       | 7.5735
+7   | HYBRID NEURAL                       | 471,140       | 6.8008
+8   | O-GEHL (8-Feature Geometric)        | 65,584        | 7.3121
+9   | 3-Feature Table (GHR/PHR/PC)        | N/A           | 10.9173
+10  | TAGE-SC-L (Benchmark)               | 524,288       | 4.1652
 
 
+### 2. PREDICTOR ANALYSIS
 
-### 2. FLAGSHIP COMPARISON: HYBRID NEURAL (#7) VS. TAGE-SC-L
+#### A: Bimodal
+Simple and holds its ground but is limited by exponential power requirements. Mapping the PC to a small table causes significant aliasing.
+
+#### B: GAg (Global History Register, Global History Table)
+Looking at the IPC and MPKI, it performs sub-par compared to Bimodal. However, it is efficient: using 74.97% less area, it achieves 93% of the accuracy. While not beating Bimodal, it represents a strong area-vs-accuracy trade-off.
+
+#### C: PAg (Per-Address History Register, Global History Table)
+PAg combines history recording per address, reducing aliasing in the pattern history table. It excels in programs where branches are tightly coupled. By recording history using 62.5% less area and achieving a competitive MPKI, it captures hard-to-predict branches more effectively than Bimodal, resulting in a higher IPC.
+
+#### D: Tournament
+This is an Alpha 21264-style tournament predictor, combining the features of both PAg and GAg with a choice table to decide between them. I experimented with a 24-bit GHR folded into 12 bits for the GAg component, thinking it would encode more information; however, IPC decreased by 0.01 and MPKI increased by 0.93.
+
+#### E: Perceptron
+The Perceptron uses a 32-bit GHR and a 10-bit address. This is a "heavy hitter" in terms of memory. Out of curiosity, I tested a pure 24-bit GAg, but the IPC did not approach 2.2 and it was completely unrealizable in hardware. The Perceptron is large but represents a significant step toward TAGE-SC-L performance.
+
+#### F: Hybrid Neural
+The name comes from the combination of inputs it utilizes. It features a 28-bit GHR with a bias weight, a 16-bit Path History (PHR), and 10-bit Local History. One weight is formed from a PAg (10-bit PC XORed with GHR), and a 12-bit GAg contributes another weight (taking the GHR from bit 29 onwards). The feature vector is: **{28b GHR + 16b PHR + 10b Local + 1b PAg + 1b GAg}**.
+
+This reached 2.7609 IPC. I also created a "behemoth" version with 32-bit GHR, same PHR/Local/PAg, but up to 128 bits of global history with 16 segments of GAg feeding into the perceptron. This reached 2.9102 IPC. While highly impractical for hardware, it was an attempt to incorporate longer history into a neural framework. The goal of adding PAg and GAg was to provide non-linear inputs to the perceptron, allowing the linear matcher to make better decisions based on non-linear data.
+
+#### G: O-GEHL
+This model was a revelation. Previously, I viewed features as vectors to be integrated into a perceptron; here, the feature is inherent to the index, and weights are extracted from tables. We use fewer tables than a standard perceptron, but the features map directly to weights. Training follows the perceptron rule, but the threshold (Theta) is adjusted on the fly. It uses only 8 tables but can be extended linearly; history length increases geometrically, utilizing drastically fewer weights.
+
+### 3. REMARKS
+As we move from Bimodal to O-GEHL, predictors become significantly "smarter." TAGE combines the geometric lengths of O-GEHL with a mapping system that handles non-linear functions like XOR. My Hybrid Neural was inspired by the Multi-Perspective Perceptron (MPP) predictor, which looks at address, path, global/local history, and stacks. Combing non-linear mapping with perceptron logic allows the model to better analyze what is coming, what is happening, and what has happened to make superior predictions.
+
+### 4. FLAGSHIP COMPARISON: HYBRID NEURAL (#7) VS. TAGE-SC-L
 -------------------------------------------------------
-Predictor #7 represents a sophisticated "Neural-Statistical" approach, 
-integrating Global, Local, and Path history into a single weighted sum.
+Predictor #7 represents a sophisticated "Neural-Statistical" approach, integrating Global, Local, and Path history into a single weighted sum.
 
 Predictor         | IPC (A-Mean) | MR (A-Mean) | MPKI (H-Mean) | CycWPPKI
 ------------------|--------------|-------------|---------------|-----------------
 Hybrid Neural (#7)| 2.7609       | 4.66%       | 1.0274        | 191.3285
 TAGE-SC-L (Bench) | 3.1055       | 2.89%       | 1.0337        | 136.3096
 
-### 3. SCALING & EFFICIENCY METRICS (BITS TO PERFORMANCE)
+### 5. SCALING & EFFICIENCY METRICS
 ------------------------------------------------------
-"Bits/MPKI" represents the hardware bit cost to reduce the MPKI by 1 unit.
-
-Predictor         | Total Bits | Bits/IPC (Lower=Better) | Bits/MPKI (Lower=Better)
-------------------|------------|-------------------------|-------------------------
-Bimodal 4k        | 8,192      | 3,975                   | 615
-Bimodal 16k       | 32,768     | 14,589                  | 2,964
-GAg (12-bit)      | 8,204      | 3,897                   | 579
-PAg (10-bit)      | 12,288     | 5,290                   | 1,091
-Tournament        | 28,684     | 11,503                  | 3,036
-Perceptron (#6)   | 204,824    | 80,000                  | 27,044
-Hybrid Neural (#7)| 471,140    | 170,647                 | 69,277
-O-GEHL (#8)       | 65,584     | 25,362                  | 8,969
-TAGE-SC-L         | 524,288    | 168,825                 | 125,873
-
-Observation: Predictor #7 is significantly more efficient per bit than TAGE-SC-L. 
-While TAGE has lower absolute MPKI, the Hybrid Perceptron achieves better 
-accuracy density, requiring fewer bits to maintain a sub-1.1 Harmonic Mean MPKI.
-
-### 4. DETAILED HARDWARE BUDGETS & PERFORMANCE METRICS
---------------------------------------------------
-
-PREDICTOR #1: 4K BIMODAL
-- Bit Calculation: 4096 entries * 2 bits
-- Metrics: IPC: 2.0607 | MR: 9.24% | MPKI: 13.3051
-
-PREDICTOR #4: PAG (10-BIT HISTORY)
-- Bit Calculation: (1024 * 10) Local Hist + (1024 * 2) PHT = 12,288 bits
-- Metrics: IPC: 2.3225 | MR: 7.72% | MPKI: 11.2587
-
-
-
-PREDICTOR #7: HYBRID NEURAL (GLOBAL + LOCAL + PATH + DYNAMIC THETA)
-- Bit Calculation Breakdown:
-  * Global Weights: (29 * 8 * 1024) = 237,568 bits
-  * Local Weights:  (10 * 8 * 1024) = 81,920 bits
-  * Path Weights:   (16 * 8 * 1024) = 131,072 bits
-  * Local BHT:      (1024 * 10)      = 10,240 bits
-  * Logic/Indices:  (Misc)           = 10,340 bits
-- TOTAL BITS: 471,140 bits (~57.5 KB)
-- Metrics: IPC: 2.7609 | MR: 4.66% | MPKI: 6.8008 | CycWPPKI: 191.3285
-
-PREDICTOR #10: TAGE-SC-L (BENCHMARK)
-- Bit Calculation: 524,288 bits (64 KB Limit)
-- Metrics: IPC: 3.1055 | MR: 2.89% | MPKI: 4.1652 | CycWPPKI: 136.3096
-
-### 5. AUTOMATION & EXECUTION (BASH SCRIPT)
----------------------------------------
-- / (Main Directory): Contains the primary C++ source code for the 
-  O-GEHL
-- /submission: Contains source code and headers for various experimental 
-  predictor tasks (#1 through #7).
-- /results: Stores the output logs and performance metrics for individual 
-  trace files.
-- /cbp6_traces: Directory containing the 40 benchmark trace files.
+Predictor         | Total Bits | IPC                     | MPKI        |  CycWPPKI    
+------------------|------------|-------------------------|-------------|-----------
+Bimodal 4k        | 8,192      | 2.0607                  | 13.3051     |  322.4358
+Bimodal 16k       | 32,768     | 2.2459                  | 11.0545     |  281.3167
+GAg (12-bit)      | 8,204      | 2.1051                  | 14.1662     |  336.1540
+PAg (10-bit)      | 12,288     | 2.3225                  | 11.2587     |  278.1750
+Tournament        | 28,684     | 2.4376                  | 9.4469      |  259.6916
+Perceptron        | 270,336    | 2.6853                  | 7.5755      |  206.5263
+Hybrid Neural (#7)| 471,140    | 2.7609                  | 6.8008      |  191.3285
+O-GEHL (#8)       | 65,584     | 2.5859                  | 7.3121      |  210.3925
+TAGE-SC-L         | 524,288    | 3.1055                  | 4.1652      |  136.3096
 
 ### 6. INDEPENDENT STUDY & REFERENCES
 ----------------------------------
-This research was conducted independently by following the Prof. Onur Mutlu 
-(ETH Zurich) Digital Design and Computer Architecture lecture series.
+This research was conducted independently following the Prof. Onur Mutlu (ETH Zurich) Digital Design and Computer Architecture lecture series.
 
 [1] Seznec, A. "Genesis of the O-GEHL branch predictor." JILP, 2005.
 
 [2] Jiménez, D. A. "Multiperspective Perceptron Predictor." CBP-6, 2019.
-    (Inspiration for the 3-Feature Predictor #9).
 
-[3] Jiménez, D. A., & Lin, C. "Dynamic Branch Prediction with Perceptrons." 
-    HPCA, 2001.
+[3] Jiménez, D. A., & Lin, C. "Dynamic Branch Prediction with Perceptrons." HPCA, 2001.
 
 [4] Jimenez, D. A. "Piecewise Linear Branch Prediction." ISCA, 2005.
 
 [5] Kessler, R. E. "The Alpha 21264 Microprocessor." IEEE Micro, 1999.
-    (Basis for Tournament Predictor #5).
