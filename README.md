@@ -80,23 +80,3 @@ This research was conducted independently following the Prof. Onur Mutlu (ETH Zu
 [4] Jimenez, D. A. "Piecewise Linear Branch Prediction." ISCA, 2005.
 
 [5] Kessler, R. E. "The Alpha 21264 Microprocessor." IEEE Micro, 1999.
-
-
-
-I’ve spent the last few weeks diving into high-performance branch prediction. What started with Professor Onur Mutlu’s (@Onur Mutlu) Fundamentals of Computer Architecture CBP-6 simulator.
-
-In the final lab task—an open-budget challenge—I pushed the limits by building a "Behemoth" Predictor: 12 GAg segments and 1 PAg feeding into a Perceptron with a 28-bit GHR, 10-bit Local History, and 16-bit Path History. This experimental setup hit an IPC of 2.901, closing in on the benchmark TAGE-SC-L (3.10 IPC).
-
-Project Highlights:
-
-Evolution of Complexity: I implemented 10 predictors, scaling from simple 4k Bimodal tables to a Hybrid Neural model. Using a custom feature vector, I reached 2.76 IPC—a significant jump, though the logic depth makes it a challenge for real-world hardware timing.
-
-O-GEHL Efficiency: This was the "aha!" moment. I implemented an 8-table geometric history length predictor that achieved 7.31 MPKI using only 65k bits. It is 4.1x more area-efficient than a standard 270k-bit Perceptron.
-
-The Non-Linear Edge: My Hybrid Neural design was inspired by the Multiperspective Perceptron (MPP). By feeding non-linear inputs (PAg/GAg) into a linear matcher, the model learns which history "expert" to trust for specific branch patterns.
-
-Key Insight: Architecture is the art of trade-offs. While long histories catch that "last stretch" of hard-to-predict branches, the real engineering challenge is managing adder-tree latency and bit budgets.
-
-The journey doesn't stop!
-
-#ComputerArchitecture #HardwareEngineering #CPUDesign #OnurMutlu #CBP6 #NeuralNetworks #DigitalDesign #OpenSourceEducation
